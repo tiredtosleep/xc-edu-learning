@@ -1,0 +1,28 @@
+server:
+  port: ${port:40100}
+spring:
+  application:
+    name: xc-search-service
+
+xuecheng:
+  elasticsearch:
+     hostlist: ${eshostlist:192.168.25.128:9200} #多个结点中间用逗号分隔
+  course:
+    index: xc_course
+    type: doc
+    source_field: id,name,grade,mt,st,charge,valid,pic,qq,price,price_old,status,studymodel,teachmode,expires,pub_time,start_time,end_time
+  media:
+    index: xc_course_media
+    type:  doc
+    source_field: courseid,media_id,media_url,teachplan_id,media_fileoriginalname
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka01:50101/eureka
+    registry-fetch-interval-seconds: 5
+  instance:
+     lease-renewal-interval-in-seconds: 5 # 每隔5秒发送一次心跳
+     lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
+     prefer-ip-address: true
+     ip-address: 127.0.0.1
+     instance-id: ${spring.application.name}:${server.port}

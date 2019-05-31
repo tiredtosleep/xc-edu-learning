@@ -1,0 +1,35 @@
+server:
+  port: 31000
+spring:
+  application:
+    name: xc-service-manage-cms-client
+  data:
+    mongodb:
+      uri: mongodb://root:cxg200888@localhost:27017
+      database: xc_cms
+  freemarker:
+    cache: false
+  # rabbitmq配置
+  rabbitmq:
+        host: 192.168.25.128
+        username: 2850105498
+        password: cxg200888
+        virtual-host: /leyou
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka01:50101/eureka
+    registry-fetch-interval-seconds: 5
+  instance:
+     lease-renewal-interval-in-seconds: 5 # 每隔5秒发送一次心跳
+     lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
+     prefer-ip-address: true
+     ip-address: 127.0.0.1
+     instance-id: ${spring.application.name}:${server.port}
+xuecheng:
+  mq:
+    #cms客户端监控的队列名称（不同的客户端监控的队列不能重复）
+    queue: queue_cms_postpage_03
+    routingKey: 5ccaa5fb5b7d4a1f949f7e46	#此routingKey为门户站点ID
+
+

@@ -1,0 +1,22 @@
+server:
+  port: 31450
+spring:
+  application:
+    name: xc-service-manage-media-processor
+  data:
+    mongodb:
+      uri:  mongodb://root:cxg200888@localhost:27017
+      database: xc_media
+#rabbitmq配置
+  # rabbitmq配置
+  rabbitmq:
+        host: 192.168.25.128
+        username: 2850105498
+        password: cxg200888
+        virtual-host: /leyou
+xc-service-manage-media:
+  mq:
+    queue-media-video-processor: queue_media_video_processor
+    routingkey-media-video: routingkey_media_video
+  video-location: G:/Java-webspace/xc_edu/develop/video/
+  ffmpeg-path: C:/FFmpeg/bin/ffmpeg.exe

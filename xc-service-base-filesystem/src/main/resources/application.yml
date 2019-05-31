@@ -1,0 +1,42 @@
+server:
+  port: 22100
+spring:
+  application:
+    name: xc-service-base-filesystem
+#mongo配置
+  data:
+      mongodb:
+        uri: mongodb://root:cxg200888@localhost:27017
+        database: xc_cms
+#SpringMVC上传文件配置
+  servlet:
+    multipart:
+      #默认支持文件上传.
+      enabled: true
+      #支持文件写入磁盘.
+      file-size-threshold: 0
+      # 上传文件的临时目录
+      location:
+      # 最大支持文件大小
+      max-file-size: 1MB
+      # 最大支持请求大小
+      max-request-size: 30MB
+fdfs:
+  so-timeout: 1501
+  connect-timeout: 601
+  thumb-image: # 缩略图
+    width: 60
+    height: 60
+  tracker-list: # tracker地址
+     - 192.168.25.128:22122 #fdfs虚拟机ip地址
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka01:50101/eureka
+    registry-fetch-interval-seconds: 5
+  instance:
+     lease-renewal-interval-in-seconds: 5 # 每隔5秒发送一次心跳
+     lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
+     prefer-ip-address: true
+     ip-address: 127.0.0.1
+     instance-id: ${spring.application.name}:${server.port}

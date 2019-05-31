@@ -1,0 +1,27 @@
+server:
+  port: 31001
+spring:
+  application:
+    name: xc-service-manage-cms
+  data:
+    mongodb:
+      uri: mongodb://root:cxg200888@localhost:27017
+      database: xc_cms
+  freemarker:
+    cache: false
+  rabbitmq:
+        host: 192.168.25.128
+        username: 2850105498
+        password: cxg200888
+        virtual-host: /leyou
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka01:50101/eureka
+    registry-fetch-interval-seconds: 5
+  instance:
+     lease-renewal-interval-in-seconds: 5 # 每隔5秒发送一次心跳
+     lease-expiration-duration-in-seconds: 10 # 10秒不发送就过期
+     prefer-ip-address: true
+     ip-address: 127.0.0.1
+     instance-id: ${spring.application.name}:${server.port}

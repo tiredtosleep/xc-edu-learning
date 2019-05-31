@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuecheng.manage_course.dao.CategoryMapper">
+
+    <resultMap id="categoryMap" type="com.xuecheng.framework.domain.course.ext.CategoryNode">
+        <id property="id" column="a_id"></id>
+        <result property="name" column="a_name"></result>
+        <result property="label" column="a_label"></result>
+        <result property="parentid" column="a_parentid"></result>
+        <result property="isshow" column="a_isshow"></result>
+        <result property="orderby" column="a_orderby"></result>
+        <result property="isleaf" column="a_isleaf"></result>
+        <collection property="children" ofType="com.xuecheng.framework.domain.course.ext.CategoryNode">
+            <id property="id" column="b_id"></id>
+            <result property="name" column="b_name"></result>
+            <result property="label" column="b_label"></result>
+            <result property="parentid" column="b_parentid"></result>
+            <result property="isshow" column="b_isshow"></result>
+            <result property="orderby" column="b_orderby"></result>
+            <result property="isleaf" column="b_isleaf"></result>
+            <collection property="children" ofType="com.xuecheng.framework.domain.course.ext.CategoryNode">
+                <id property="id" column="c_id"></id>
+                <result property="name" column="c_name"></result>
+                <result property="label" column="c_label"></result>
+                <result property="parentid" column="c_parentid"></result>
+                <result property="isshow" column="c_isshow"></result>
+                <result property="orderby" column="c_orderby"></result>
+                <result property="isleaf" column="c_isleaf"></result>
+            </collection>
+        </collection>
+
+    </resultMap>
+    <select id="findCategory" resultMap="categoryMap" >
+            SELECT
+            a.id a_id,
+            a.name a_name,
+            a.label a_label,
+            a.parentid a_parentid,
+            a.isshow a_isshow,
+            a.orderby a_orderby,
+            a.isleaf a_isleaf,
+            b.id b_id,
+            b.name b_name,
+            b.label a_label,
+            b.parentid b_parentid,
+            b.isshow b_isshow,
+            b.orderby b_orderby,
+            b.isleaf b_isleaf,
+            c.id c_id,
+            c.name c_name,
+            c.label c_label,
+            c.parentid c_parentid,
+            c.isshow c_isshow,
+            c.orderby c_orderby,
+            c.isleaf c_isleaf
+            FROM
+            category a LEFT JOIN category b
+            ON a.id=b.`parentid`
+            LEFT JOIN category c
+            ON b.id=c.`parentid`
+            WHERE a.`parentid`='0'
+            ORDER BY a.`orderby`,b.`orderby`,c.`orderby`
+
+    </select>
+</mapper>
